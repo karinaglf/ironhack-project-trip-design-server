@@ -7,6 +7,9 @@ npm-debug.log
 # Environment Variables should NEVER be published
 .env
 
+# General
+.vscode
+
 ### macOS ###
 # General
 .DS_Store
