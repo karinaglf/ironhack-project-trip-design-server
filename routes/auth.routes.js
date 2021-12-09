@@ -55,7 +55,9 @@ router.post("/auth/signup", async (req, res, next) => {
       email,
       password: hashedPassword,
       name,
-      role
+      role,
+      createdTrips,
+      requestedTrips
     });
 
     // We should never expose passwords publicly
@@ -64,6 +66,8 @@ router.post("/auth/signup", async (req, res, next) => {
       email: createdUser.email,
       name: createdUser.name,
       role: createdUser.role,
+      createdTrips: createdUser.createdTrips,
+      requestedTrips: createdUser.requestedTrips
     };
 
     // Send the response back
@@ -104,6 +108,8 @@ router.post("/auth/login", async (req, res, next) => {
         name: foundUser.name,
         role: foundUser.role, // 'admin' or 'user'
         image: foundUser.image, 
+        createdTrips: foundUser.createdTrips,
+        requestedTrips: foundUser.requestedTrips
       };
 
       // Create a JWT with the payload
