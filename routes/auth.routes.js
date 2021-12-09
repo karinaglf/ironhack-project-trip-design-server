@@ -90,12 +90,14 @@ router.post("/auth/login", async (req, res, next) => {
     }
 
     // Check if the user exists
-    const foundUser = await User.findOne({ email: email });
+    const foundUser = await User.findOne({ email: email }).populate('createdTrips').populate('requestedTrips');
 
     if (!foundUser) {
       res.status(400).json({ message: "Provide a valid email" });
       return;
     }
+
+    console.log(`FOUND USER IN AUTH ROUTES`, foundUser);
 
     //  Compare the provided password with one from debugger
     const passwordCorrect = await bcrypt.compare(password, foundUser.password);
@@ -111,6 +113,8 @@ router.post("/auth/login", async (req, res, next) => {
         createdTrips: foundUser.createdTrips,
         requestedTrips: foundUser.requestedTrips
       };
+
+      console.log(`USER PAYLOAD`, payload);
 
       // Create a JWT with the payload
       // jwt.sign(payload, secretKey, options)

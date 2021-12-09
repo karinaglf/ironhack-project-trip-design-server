@@ -1,4 +1,5 @@
 const express = require("express");
+const userModel = require("../models/user.model");
 const router = express.Router();
 const User = require("../models/user.model");
 const { isAuthenticated } = require("./../middleware/jwt.middleware");

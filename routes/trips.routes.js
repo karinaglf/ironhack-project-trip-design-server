@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 router.get('/api/trips', async (req, res, next) => {
   try {
     const allTrips = await Trips.find();
-    console.log(allTrips)
     res.status(200).json(allTrips);
   } catch (error) {
     res.status(500).json(error);
@@ -26,10 +25,12 @@ router.post('/api/trips', async (req, res, next) => {
       .create({tripName, coverImg, createdBy, requestedBy})
       
       res.status(201).json(createdTrip);  // 201 Created
-      console.log(`createdTrip`, createdTrip)
 
       // Update user who created the trip
       await User.findByIdAndUpdate(createdBy, { $push: { createdTrips: createdTrip._id } });
+
+      const foundedUser = await User.findById(createdBy).populate('createdTrips');
+      console.log(`foundedUser in Trips Routes`, foundedUser)
   
     } catch (error) {
       res.status(500).json(error); // Internal Server Error
