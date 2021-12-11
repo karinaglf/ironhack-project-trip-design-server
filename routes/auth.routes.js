@@ -55,9 +55,7 @@ router.post("/auth/signup", async (req, res, next) => {
       email,
       password: hashedPassword,
       name,
-      role,
-      createdTrips,
-      requestedTrips
+      role
     });
 
     // We should never expose passwords publicly
@@ -65,9 +63,7 @@ router.post("/auth/signup", async (req, res, next) => {
       _id: createdUser._id,
       email: createdUser.email,
       name: createdUser.name,
-      role: createdUser.role,
-      createdTrips: createdUser.createdTrips,
-      requestedTrips: createdUser.requestedTrips
+      role: createdUser.role
     };
 
     // Send the response back

@@ -90,7 +90,14 @@ router.put('/api/trips/:tripId', async (req, res, next) => {
         res.status(400).json({ message: "Invalid object id" });
         return;
       }
-  
+
+      const foundedTrip= await Trips.findById(tripId).populate('createdBy')
+      console.log(`foundedTrip to be DELETED`, foundedTrip)
+
+      // Update user who created the trip
+      const creatorUser = await User.findById(foundedTrip.createdBy)
+      const updatedCreatorUser = await User.findByIdAndUpdate(foundedTrip.createdBy, { $pull: { createdTrips: foundedTrip._id } });
+
       await Trips.findByIdAndDelete(tripId);
   
       res.status(204).send();  // No Content

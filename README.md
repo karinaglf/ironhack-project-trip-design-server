@@ -45,8 +45,8 @@ A platform for travel advisors to create and share custom trip itineraries with 
 | `/login`       | HomePage        | anon only  `<AnonRoute>`    | Login form, navigates to home page after login.   |
 | `/profile`     | ProfilePage     | user only `<PrivateRoute>`  | Profile for the current user                      |
 | `/create-trip` | CreateTripPage  | admin only `<PrivateRoute>` | Create a new trip form                            |
-| `/:tripId`     | TripDetailsPage | public `<Route>`            | Show detailed day-by-day trip itinerary           |
-| /:tripId/edit  | EditTripPage    | admin only `<PrivateRoute>` | Edit trip itinerary form                          |
+| `/trips/:tripId`     | TripDetailsPage | public `<Route>`            | Show detailed day-by-day trip itinerary           |
+| `trips/:tripId/edit`  | EditTripPage    | admin only `<PrivateRoute>` | Edit trip itinerary form                          |
 
 ## Components
 **Pages**
