@@ -18,11 +18,11 @@ router.get('/api/trips', async (req, res, next) => {
 router.post('/api/trips', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const {tripName, coverImg, createdBy, requestedBy} = req.body;
+      const {tripName, coverImg, createdBy, requestedBy, startDate, endDate, duration, pax, coverMsg} = req.body;
   
       // Save the data in the db
       const createdTrip = await Trips
-      .create({tripName, coverImg, createdBy, requestedBy})
+      .create({tripName, coverImg, createdBy, requestedBy, startDate, endDate, duration, pax, coverMsg})
       
       res.status(201).json(createdTrip);  // 201 Created
 
