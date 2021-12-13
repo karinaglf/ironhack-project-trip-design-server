@@ -11,7 +11,15 @@ const tripsSchema = new Schema({
   duration: { type: Number },
   pax: { type: Number },
   coverMsg: { type: String },
-  cities: [{ type: Schema.Types.ObjectId, ref: 'City' }]
+  destination: {
+    cities: [{ type: Schema.Types.ObjectId, ref: 'City' }],
+    accommodation: [{ type: Schema.Types.ObjectId, ref: 'Accommodation' }]
+  },
+  days: [
+    {
+      experiences:[{ type: Schema.Types.ObjectId, ref: 'Experiences' }],
+    }
+  ]
 });
 
 module.exports = model('Trips', tripsSchema);
