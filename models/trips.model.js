@@ -11,6 +11,7 @@ const tripsSchema = new Schema({
   duration: { type: Number },
   pax: { type: Number },
   coverMsg: { type: String },
+  cities: [{ type: Schema.Types.ObjectId, ref: 'City' }]
 });
 
 module.exports = model('Trips', tripsSchema);
