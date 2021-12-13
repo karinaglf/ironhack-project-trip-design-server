@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 // GET /api/cities - Get all existing cities
 router.get('/api/cities', async (req, res, next) => {
   try {
-    const allCities = await City.find();
+    const allCities = await City.find().populate('country');
     res.status(200).json(allCities);
   } catch (error) {
     res.status(500).json(error);
@@ -17,11 +17,11 @@ router.get('/api/cities', async (req, res, next) => {
 router.post('/api/cities', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const { name, description, img } = req.body;
+      const { name, country, description, img } = req.body;
   
       // Save the data in the db
       const createdCity = await City
-      .create({ name, description, img })
+      .create({ name, country, description, img })
       
       res.status(201).json(createdCity);  // 201 Created
   
@@ -43,7 +43,7 @@ router.get('/api/cities/:cityId', async (req, res, next) => {
     }
 
     // Make a DB query
-    const oneCity = await City.findById(cityId);
+    const oneCity = await City.findById(cityId).populate('country');
 
     // Send the response
     res.status(200).json(oneCity);
@@ -64,9 +64,9 @@ router.put('/api/cities/:cityId', async (req, res, next) => {
       }    
   
       // Values to use for updating the city
-      const { name, description, img } = req.body;
+      const { name, country, description, img } = req.body;
   
-      const updatedCity = await City.findByIdAndUpdate(cityId, { name, description, img }, { new: true });
+      const updatedCity = await City.findByIdAndUpdate(cityId, { name, country, description, img }, { new: true });
       
       res.status(200).json(updatedCity);
     } catch (error) {
