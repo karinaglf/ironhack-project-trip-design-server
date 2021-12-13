@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Trips = require("../models/trips.model");
+const Trips = require("../models/trip.model");
 const User = require("../models/user.model");
 const mongoose = require('mongoose');
 
 // GET /api/trips - Get all existing trips
 router.get('/api/trips', async (req, res, next) => {
   try {
-    const allTrips = await Trips.find().populate('cities');
+    const allTrips = await Trips.find()
+
     res.status(200).json(allTrips);
   } catch (error) {
     res.status(500).json(error);
@@ -18,11 +19,45 @@ router.get('/api/trips', async (req, res, next) => {
 router.post('/api/trips', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const {tripName, coverImg, createdBy, requestedBy, startDate, endDate, duration, pax, coverMsg, cities} = req.body;
+      const {
+        tripName,
+        coverImg,
+        createdBy,
+        requestedBy,
+        startDate,
+        endDate,
+        duration,
+        pax,
+        coverMsg,
+        destination: [{
+          city,
+          accommodations
+        }],
+        days: [{
+          experiences
+        }],
+      } = req.body;
 
       // Save the data in the db
       const createdTrip = await Trips
-      .create({tripName, coverImg, createdBy, requestedBy, startDate, endDate, duration, pax, coverMsg, cities})
+      .create({
+        tripName,
+        coverImg,
+        createdBy,
+        requestedBy,
+        startDate,
+        endDate,
+        duration,
+        pax,
+        coverMsg,
+        destination: [{
+          city,
+          accommodations
+        }],
+        days: [{
+          experiences
+        }],
+      })
       
       res.status(201).json(createdTrip);  // 201 Created
 
@@ -50,7 +85,11 @@ router.get('/api/trips/:tripId', async (req, res, next) => {
     }
 
     // Make a DB query
-    const oneTrip = await Trips.findById(tripId).populate('cities');
+    const oneTrip = await Trips
+      .findById(tripId)
+      .populate('destination.city')
+      .populate('destination.accommodations')
+      .populate('days.experiences')
 
     // Send the response
     res.status(200).json(oneTrip);

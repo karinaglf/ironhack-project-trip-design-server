@@ -7,8 +7,8 @@ const userSchema = new Schema({
   name: { type: String, required: true },
   role: { type: String, enum: ["admin", "user"], default: "user" },
   image: { type: String, default: "https://i.imgur.com/yWHfhiG.png" },
-  createdTrips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
-	requestedTrips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }], 
+  createdTrips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
+	requestedTrips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }], 
 });
 
 module.exports = model("User", userSchema);
