@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Experience = require("../models/experience.model");
+const City = require("../models/city.model");
 const mongoose = require('mongoose');
 
 // GET /api/experiences - Get all existing experiences
@@ -17,19 +18,16 @@ router.get('/api/experiences', async (req, res, next) => {
 router.post('/api/experiences', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const {name, description, img, category, externalUrl, affiliateUrl } = req.body;
+      const {name, description, img, category, externalUrl, affiliateUrl, cityId } = req.body;
   
       // Save the data in the db
       const createdExperience = await Experience
-      .create({name, description, img, category, externalUrl, affiliateUrl })
+      .create({name, description, img, category, externalUrl, affiliateUrl, city: cityId })
+      
+      // Update city where the experience happens
+      await City.findByIdAndUpdate(cityId, { $push: { experiences: createdExperience._id } });
       
       res.status(201).json(createdExperience);  // 201 Created
-
-      // // Update user who created the trip
-      // await User.findByIdAndUpdate(createdBy, { $push: { createdTrips: createdTrip._id } });
-
-      // const foundedUser = await User.findById(createdBy).populate('createdTrips');
-      // console.log(`foundedUser in Trips Routes`, foundedUser)
   
     } catch (error) {
       res.status(500).json(error); // Internal Server Error

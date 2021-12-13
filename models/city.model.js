@@ -6,6 +6,7 @@ const citySchema = new Schema({
   description: { type: String },
   img: { type: String, default: 'https://images.unsplash.com/photo-1520645521318-f03a712f0e67'},
   accommodations: [{ type: Schema.Types.ObjectId, ref: 'Accommodation' }],
+  experiences: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
 });
 
 module.exports = model('City', citySchema);
