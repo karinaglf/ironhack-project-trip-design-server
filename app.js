@@ -24,6 +24,12 @@ app.use("/", authRoutes);
 const tripsRoutes = require("./routes/trips.routes");
 app.use("/", tripsRoutes);
 
+const accommodationRoutes = require("./routes/accommodation.routes");
+app.use("/", accommodationRoutes);
+
+const experienceRoutes = require("./routes/experience.routes");
+app.use("/", experienceRoutes);
+
 const userRoutes = require("./routes/user.routes");
 app.use("/", userRoutes);
 
