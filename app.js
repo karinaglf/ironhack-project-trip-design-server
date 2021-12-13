@@ -24,6 +24,9 @@ app.use("/", authRoutes);
 const tripsRoutes = require("./routes/trips.routes");
 app.use("/", tripsRoutes);
 
+const cityRoutes = require("./routes/city.routes");
+app.use("/", cityRoutes);
+
 const accommodationRoutes = require("./routes/accommodation.routes");
 app.use("/", accommodationRoutes);
 

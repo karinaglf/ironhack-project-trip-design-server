@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Accommodation = require("../models/accommodation.model");
+const City = require("../models/city.model");
 const mongoose = require('mongoose');
 
 // GET /api/accommodations - Get all existing accommodations
@@ -17,20 +18,22 @@ router.get('/api/accommodations', async (req, res, next) => {
 router.post('/api/accommodations', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const {name, description, img, category, externalUrl, affiliateUrl } = req.body;
+      const {name, description, img, category, externalUrl, affiliateUrl, cityId } = req.body;
   
+      if (!mongoose.Types.ObjectId.isValid(cityId)) {
+        res.status(400).json({ message: "Invalid object id" });
+        return;
+      }
+      
       // Save the data in the db
       const createdAccommodation = await Accommodation
-      .create({name, description, img, category, externalUrl, affiliateUrl })
+      .create({name, description, img, category, externalUrl, affiliateUrl, city: cityId })
+      
+      // Update city where the accommodation is located
+      await City.findByIdAndUpdate(cityId, { $push: { accommodations: createdAccommodation._id } });
       
       res.status(201).json(createdAccommodation);  // 201 Created
-
-      // // Update user who created the trip
-      // await User.findByIdAndUpdate(createdBy, { $push: { createdTrips: createdTrip._id } });
-
-      // const foundedUser = await User.findById(createdBy).populate('createdTrips');
-      // console.log(`foundedUser in Trips Routes`, foundedUser)
-  
+      
     } catch (error) {
       res.status(500).json(error); // Internal Server Error
     }

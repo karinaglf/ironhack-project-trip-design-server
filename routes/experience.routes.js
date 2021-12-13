@@ -3,7 +3,7 @@ const router = express.Router();
 const Experience = require("../models/experience.model");
 const mongoose = require('mongoose');
 
-// GET /api/experiences - Get all existing trips
+// GET /api/experiences - Get all existing experiences
 router.get('/api/experiences', async (req, res, next) => {
   try {
     const allExperiences = await Experience.find();
