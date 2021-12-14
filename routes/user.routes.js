@@ -12,9 +12,21 @@ router.get('/api/users/current', isAuthenticated, async (req, res, next) => {
     // req.payload holds the user info that was encoded in JWT during login.
   
     const currentUser = req.payload;
-    const user = await User.findById(currentUser._id);
+    const user = await User.findById(currentUser._id).populate('createdTrips').populate('requestedTrips');
 
-    res.status(200).json(user);
+    const userInfo = {
+      // We should never expose passwords publicly
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role, // 'admin' or 'user'
+      image: user.image, 
+      createdTrips: user.createdTrips,
+      requestedTrips: user.requestedTrips
+    };
+
+
+    res.status(200).json(userInfo);
   } catch (error) {
     next(error);
   }

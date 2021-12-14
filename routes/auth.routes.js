@@ -86,7 +86,7 @@ router.post("/auth/login", async (req, res, next) => {
     }
 
     // Check if the user exists
-    const foundUser = await User.findOne({ email: email }).populate('createdTrips').populate('requestedTrips');
+    const foundUser = await User.findOne({ email: email })
 
     if (!foundUser) {
       res.status(400).json({ message: "Provide a valid email" });

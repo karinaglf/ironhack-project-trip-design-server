@@ -9,6 +9,9 @@ const userSchema = new Schema({
   image: { type: String, default: "https://i.imgur.com/yWHfhiG.png" },
   createdTrips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
 	requestedTrips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }], 
+},
+{
+  timestamps: true
 });
 
 module.exports = model("User", userSchema);
