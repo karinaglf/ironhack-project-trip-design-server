@@ -3,6 +3,7 @@ const router = express.Router();
 const City = require("../models/city.model");
 const mongoose = require('mongoose');
 
+//
 // GET /api/cities - Get all existing cities
 router.get('/api/cities', async (req, res, next) => {
   try {
