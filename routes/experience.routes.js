@@ -4,6 +4,7 @@ const Experience = require("../models/experience.model");
 const City = require("../models/city.model");
 const mongoose = require('mongoose');
 
+/
 // GET /api/experiences - Get all existing experiences
 router.get('/api/experiences', async (req, res, next) => {
   try {
