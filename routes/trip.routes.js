@@ -29,17 +29,30 @@ router.post('/api/trips', async (req, res, next) => {
         duration,
         pax,
         coverMsg,
-        destination: [{
-          city,
-          accommodations
-        }],
-        days: [{
-          experiences
-        }],
+        destination,
+        days
       } = req.body;
 
       // Save the data in the db
       const createdTrip = await Trips
+      // .create({
+      //   tripName,
+      //   coverImg,
+      //   createdBy,
+      //   requestedBy,
+      //   startDate,
+      //   endDate,
+      //   duration,
+      //   pax,
+      //   coverMsg,
+      //   destination: [{
+      //     city,
+      //     accommodations
+      //   }],
+      //   days: [{
+      //     experiences
+      //   }],
+      // })
       .create({
         tripName,
         coverImg,
@@ -50,13 +63,8 @@ router.post('/api/trips', async (req, res, next) => {
         duration,
         pax,
         coverMsg,
-        destination: [{
-          city,
-          accommodations
-        }],
-        days: [{
-          experiences
-        }],
+        destination,
+        days,
       })
       
       res.status(201).json(createdTrip);  // 201 Created
