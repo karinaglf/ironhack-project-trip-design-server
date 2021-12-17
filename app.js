@@ -36,6 +36,9 @@ app.use("/", accommodationRoutes);
 const experienceRoutes = require("./routes/experience.routes");
 app.use("/", experienceRoutes);
 
+const requestsRoutes = require("./routes/request.routes");
+app.use("/", requestsRoutes);
+
 const userRoutes = require("./routes/user.routes");
 app.use("/", userRoutes);
 
