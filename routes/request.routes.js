@@ -26,7 +26,6 @@ router.post('/api/requests', async (req, res, next) => {
       endDate,
       duration,
       pax,
-      requestedBy,
       budgetPerPerson,
       typeOfAccommodation,
       detailsOccasion,

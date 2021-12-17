@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Trips = require("../models/trip.model");
 const User = require("../models/user.model");
+const Request = require("../models/request.model");
 const mongoose = require('mongoose');
 
 // GET /api/trips - Get all existing trips
@@ -23,7 +24,7 @@ router.post('/api/trips', async (req, res, next) => {
         tripName,
         coverImg,
         createdBy,
-        requestedBy,
+        request,
         startDate,
         endDate,
         duration,
@@ -35,29 +36,11 @@ router.post('/api/trips', async (req, res, next) => {
 
       // Save the data in the db
       const createdTrip = await Trips
-      // .create({
-      //   tripName,
-      //   coverImg,
-      //   createdBy,
-      //   requestedBy,
-      //   startDate,
-      //   endDate,
-      //   duration,
-      //   pax,
-      //   coverMsg,
-      //   destination: [{
-      //     city,
-      //     accommodations
-      //   }],
-      //   days: [{
-      //     experiences
-      //   }],
-      // })
       .create({
         tripName,
         coverImg,
         createdBy,
-        requestedBy,
+        request,
         startDate,
         endDate,
         duration,
@@ -74,6 +57,12 @@ router.post('/api/trips', async (req, res, next) => {
 
       const foundedUser = await User.findById(createdBy).populate('createdTrips');
       console.log(`foundedUser in Trips Routes`, foundedUser)
+
+      // Update the trip request
+      await Request.findByIdAndUpdate(request, { $push: { tripPlan: createdTrip._id } });
+
+      const foundedRequest = await Request.findById(request).populate('tripPlan');
+      console.log(`foundedRequest in Trips Routes`, foundedRequest)      
   
     } catch (error) {
       res.status(500).json(error); // Internal Server Error
@@ -120,7 +109,7 @@ router.put('/api/trips/:tripId', async (req, res, next) => {
       // Values to use for updating the trip
       const { tripName, coverImg, createdBy, requestedBy } = req.body;
   
-      const updatedTrip = await Trips.findByIdAndUpdate(tripId, { tripName, coverImg, createdBy, requestedBy }, { new: true });
+      const updatedTrip = await Trips.findByIdAndUpdate(tripId, { tripName, coverImg, createdBy, request }, { new: true });
       
       res.status(200).json(updatedTrip);
     } catch (error) {

@@ -19,7 +19,8 @@ const tripSchema = new Schema({
     {
       experiences: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
     }
-  ]
+  ],
+  request: { type: Schema.Types.ObjectId, ref: 'Request' }
 });
 
 module.exports = model('Trip', tripSchema);
