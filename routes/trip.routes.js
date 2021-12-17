@@ -69,11 +69,11 @@ router.post('/api/trips', async (req, res, next) => {
       
       res.status(201).json(createdTrip);  // 201 Created
 
-      // // Update user who created the trip
-      // await User.findByIdAndUpdate(createdBy, { $push: { createdTrips: createdTrip._id } });
+      // Update user who created the trip
+      await User.findByIdAndUpdate(createdBy, { $push: { createdTrips: createdTrip._id } });
 
-      // const foundedUser = await User.findById(createdBy).populate('createdTrips');
-      // console.log(`foundedUser in Trips Routes`, foundedUser)
+      const foundedUser = await User.findById(createdBy).populate('createdTrips');
+      console.log(`foundedUser in Trips Routes`, foundedUser)
   
     } catch (error) {
       res.status(500).json(error); // Internal Server Error
