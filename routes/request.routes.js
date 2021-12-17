@@ -81,7 +81,7 @@ router.get('/api/requests/:requestId', async (req, res, next) => {
     }
 
     // Make a DB query
-    const oneRequest = await Requests.findById(requestId);
+    const oneRequest = await Requests.findById(requestId).populate('destination').populate('requestedBy');;
 
     // Send the response
     res.status(200).json(oneRequest);
