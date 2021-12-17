@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 // GET /api/requests - Get all existing requests
 router.get('/api/requests', async (req, res, next) => {
   try {
-    const allRequests = await Requests.find();
+    const allRequests = await Requests.find().populate('destination').populate('requestedBy');
 
     res.status(200).json(allRequests);
   } catch (error) {
@@ -33,7 +33,7 @@ router.post('/api/requests', async (req, res, next) => {
       activitiesToInclude,
       specialRequest,
       status,
-      tripPlan
+      tripPlan,
     } = req.body;
 
     // Save the data in the db
@@ -50,7 +50,7 @@ router.post('/api/requests', async (req, res, next) => {
       activitiesToInclude,
       specialRequest,
       status,
-      tripPlan
+      tripPlan,
     });
 
     res.status(201).json(createdRequest); // 201 Created
