@@ -8,8 +8,7 @@ const mongoose = require('mongoose');
 // GET /api/requests - Get all existing requests
 router.get('/api/requests', async (req, res, next) => {
 	try {
-		const allRequests = await Requests.find();
-
+		const allRequests = await Requests.find().populate('requestedBy').populate('destination')
 		res.status(200).json(allRequests);
 	} catch (error) {
 		res.status(500).json(error);
