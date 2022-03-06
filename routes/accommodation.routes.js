@@ -18,19 +18,23 @@ router.get('/api/accommodations', async (req, res, next) => {
 router.post('/api/accommodations', async (req, res, next) => {
     try {
       // Get the data from the request body
-      const {name, description, img, category, externalUrl, affiliateUrl, cityId } = req.body;
+      const {name, description, img, category, externalUrl, affiliateUrl, city } = req.body;
+
+      console.log(req.body)
   
-      if (!mongoose.Types.ObjectId.isValid(cityId)) {
+      if (!mongoose.Types.ObjectId.isValid(city)) {
         res.status(400).json({ message: "Invalid object id" });
         return;
       }
       
       // Save the data in the db
       const createdAccommodation = await Accommodation
-      .create({name, description, img, category, externalUrl, affiliateUrl, city: cityId })
+      .create({name, description, img, category, externalUrl, affiliateUrl, city })
+
+      console.log(createdAccommodation)
       
       // Update city where the accommodation is located
-      await City.findByIdAndUpdate(cityId, { $push: { accommodations: createdAccommodation._id } });
+      await City.findByIdAndUpdate(city, { $push: { accommodations: createdAccommodation._id } });
       
       res.status(201).json(createdAccommodation);  // 201 Created
       
