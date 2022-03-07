@@ -59,7 +59,7 @@ router.post('/api/trips', async (req, res, next) => {
       console.log(`foundedUser in Trips Routes`, foundedUser)
 
       // Update the trip request
-      await Request.findByIdAndUpdate(request, { $push: { tripPlan: createdTrip._id } });
+      await Request.findByIdAndUpdate(request, { tripPlan: createdTrip._id, status: 'draft' });
 
       const foundedRequest = await Request.findById(request).populate('tripPlan');
       console.log(`foundedRequest in Trips Routes`, foundedRequest)      
