@@ -22,8 +22,6 @@ A platform for travel advisors to create and share custom trip itineraries with 
 
 ## User Stories
 
--  **404:** As a user I want to see an aesthetic 404 page when I try to access a page that doesn’t exist, so that I know it was my fault.
--  **500:** As a user I want to see an aesthetic error page when the dev team screws it up, so that I know that is not my fault.
 -  **Signup:** As an anonymous user I can sign up on the platform.
 -  **Login:** As a user I can login to the platform so that I can access my profile and access the data I have access.
 -  **Logout:** As a logged in user I can logout from the platform so no one else can use it.
@@ -35,7 +33,7 @@ A platform for travel advisors to create and share custom trip itineraries with 
 -  **Accommodation Page:** As a travel advisor I want to be able to manage (see all, add new, edit and delete) the accommodations available in the database.
 -  **Experiences Page:** As a travel advisor I want to be able to manage (see all, add new, edit and delete) the experiences available in the database.
 -  **Customer Profile:** As a customer I want to be able to log in and have access to previous trip itineraries that have been created for me, so I can keep a history of all my trips.
--  **Trip Details:** As user with a valid trip itinerary llink I want to be able to access the details of the trip.
+-  **Trip Details:** As user with a valid trip itinerary link I want to be able to access the details of the trip.
 
 
 ## Backlog
@@ -47,7 +45,6 @@ A platform for travel advisors to create and share custom trip itineraries with 
 - Notify customers via email that the trip itinerary is ready, so they can check on the platform.
 - Show only list of hotels and experiences related to the specific city on add trip form
 - Google API - Maps and Places
-- <br>
 
 
 # Client / Frontend
@@ -290,15 +287,13 @@ A platform for travel advisors to create and share custom trip itineraries with 
 
 ## Links
 
-### Kanban
-
-[Notion Page](https://www.notion.so/karinaglf/Project-Trip-Design-bd8f13112f29435fab6e9748cbeca779)
-
 ### Git
 
 [Client repository Link](https://github.com/karinaglf/ironhack-project-trip-design-client)
 
 [Server repository Link](https://github.com/karinaglf/ironhack-project-trip-design-server)
+
+### Deploy
 
 [Deployed App Link](https://trip-design.netlify.app)
 
